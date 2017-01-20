@@ -1,56 +1,35 @@
-var path = require('path');
+const check = require('./src/check');
+const tool = require('./src/tool');
+const TRANSLATION = require('linguacode-constants').TRANSLATION;
 
-/**
- * Removes a module from the cache
- */
-module.exports = function (moduleName) {
-  // Traverse the cache looking for the files
-  // loaded by the specified module name
-  searchCache(moduleName, function (mod) {
-    delete require.cache[mod.id];
-  });
+exports.toCode = (data, lng) => {
+  let re, reStr;
+  return data
+    .split('\n')
+    .map(line => {
+      for (let i = 0; i < TRANSLATION[lng].length; i++) {
+        const instance = TRANSLATION[lng][i];
 
-  // Remove cached paths to the module.
-  // Thanks to @akhoury for pointing this out.
-  for (var cacheKey in module.constructor._pathCache) {
-    var moduleNameLength = moduleName.length;
+        const definition = instance.definition;
+        re = new RegExp(`[^#](${definition})|^${definition}`, 'ig');
+        while ((reStr = re.exec(line)) !== null) { //in line
+          const index = reStr[1] ? reStr.index + 1 : reStr.index;
+          const value = reStr[1] ? reStr[1] : reStr[0];
 
-    var cacheKeyParsed = JSON.parse(cacheKey);
-    var requestPathOfCacheKey = cacheKeyParsed.request;
-    var requestPathOfCacheKeyLength = requestPathOfCacheKey.length;
+          const isPartOfCode = check.isPartOfCode(line, index);
+          const isPartOfCommand = check.isPartOfCommand(line, value, index);
 
-    var indexOfModuleName = requestPathOfCacheKey.lastIndexOf(moduleName);
-    var correctIndexOfModuleName = requestPathOfCacheKeyLength - moduleNameLength;
+          if (isPartOfCode && !isPartOfCommand) {
+            const toReplace = instance.command.replace(/\\/g, '');
 
-    if (indexOfModuleName !== -1 && indexOfModuleName == correctIndexOfModuleName) {
-      delete module.constructor._pathCache[cacheKey];
-      break;
-    }
-  }
+            const firstPartEndIndex = index;
+            const secondPartBeginIndex = index + value.length;
+            line = check.partitionReplace(line, toReplace, firstPartEndIndex, secondPartBeginIndex);
+          }
+        }
+      }
+
+      return line;
+    })
+    .join('\n');
 };
-
-/**
- * Traverses the cache to search for all the cached
- * files of the specified module name
- */
-function searchCache(moduleName, callback) {
-  // Resolve the module identified by the specified name
-  var mod = require.resolve(path.join(process.cwd(), moduleName));
-
-  // Check if the module has been resolved and found within
-  // the cache
-  if (mod && ((mod = require.cache[mod]) !== undefined)) {
-    // Recursively go over the results
-    (function traverse(mod) {
-      // Go over each of the module's children and
-      // traverse them
-      mod.children.forEach(function (child) {
-        traverse(child);
-      });
-
-      // Call the specified callback providing the
-      // found cached module
-      callback(mod);
-    }(mod));
-  }
-}
