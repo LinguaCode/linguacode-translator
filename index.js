@@ -24,7 +24,7 @@ exports.toCode = (data, lng) => {
 
             const firstPartEndIndex = index;
             const secondPartBeginIndex = index + value.length;
-            line = check.partitionReplace(line, toReplace, firstPartEndIndex, secondPartBeginIndex);
+            line = tool.partitionReplace(line, toReplace, firstPartEndIndex, secondPartBeginIndex);
           }
         }
       }
