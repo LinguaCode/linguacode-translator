@@ -33,3 +33,5 @@ exports.toCode = (data, lng) => {
     })
     .join('\n');
 };
+
+console.log(exports.toCode('տպել(123)\nգրել(asd)', 'hy'));
