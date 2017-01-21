@@ -11,7 +11,7 @@ exports.toCode = (data, lng) => {
         const instance = TRANSLATION[lng][i];
 
         const definition = instance.definition;
-        re = new RegExp(`[^%](${definition})|^${definition}`, 'ig');
+        re = new RegExp(`[^@](${definition})|^${definition}`, 'ig');
         while ((reStr = re.exec(line)) !== null) { //in line
           const index = reStr[1] ? reStr.index + 1 : reStr.index;
           const value = reStr[1] ? reStr[1] : reStr[0];
