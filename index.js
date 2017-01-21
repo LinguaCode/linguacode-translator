@@ -1,6 +1,6 @@
 const check = require('./src/check');
 const tool = require('./src/tool');
-const TRANSLATION = require('linguacode-constants').TRANSLATION;
+const TRANSLATION = require('linguacode-translations');
 
 exports.toCode = (data, lng) => {
   let re, reStr;

@@ -31,6 +31,6 @@
     "url": "https://github.com/LinguaCode/linguacode-translator/issues"
   },
   "dependencies": {
-    "linguacode-constants": "https://github.com/linguacode/linguacode-constants"
+    "linguacode-translations": "https://github.com/LinguaCode/linguacode-translations"
   }
 }
