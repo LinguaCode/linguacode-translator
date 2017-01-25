@@ -40,7 +40,7 @@ describe('translator', () => {
     const translation = translator.translate(text, 'hy', 'ru');
     console.log(`ru: "${translation}"`);
 
-    const expected = 'вывети("բարեւ")';
+    const expected = 'вывести("բարեւ")';
 
     if (translation == expected) {
       return done();

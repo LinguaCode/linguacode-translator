@@ -39,6 +39,7 @@ const toText = exports.toText = (data = '', lng) => {
   return data
     .split('\n')
     .map(line => {
+      line = line + ' ';
       for (let i = 0; i < TRANSLATION[lng].length; i++) {
         const instance = TRANSLATION[lng][i];
 
@@ -61,7 +62,7 @@ const toText = exports.toText = (data = '', lng) => {
         }
       }
 
-      return line;
+      return line.slice(0,-1);
     })
     .join('\n');
 };
