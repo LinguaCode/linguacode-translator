@@ -2,7 +2,7 @@ const check = require('./src/check');
 const tool = require('./src/tool');
 const TRANSLATION = require('linguacode-translations');
 
-const toCode = exports.toCode = (data, lng) => {
+const toCode = exports.toCode = (data = '', lng) => {
   let re, reStr;
   return data
     .split('\n')
@@ -34,7 +34,7 @@ const toCode = exports.toCode = (data, lng) => {
     .join('\n');
 };
 
-const toText = exports.toText = (data, lng) => {
+const toText = exports.toText = (data = '', lng) => {
   let re, reStr;
   return data
     .split('\n')
