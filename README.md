@@ -1,29 +1,31 @@
-# node-cache-wiper
+# linguacode-translator
 
 ## Description
-**node-cache-wiper** is a cache wiper of the required modules in Node.js.  
-It's useful when you making tests and there is a need refresh caches.
-
+**linguacode-translator** is a library which allows to translate text to code and the opposite.
 
 ## How to install
 
+#### yarn
 ```sh
-$ npm install https://github.com/otanim/node-cache-wiper --save
+yarn add https://github.com/linguacode/linguacode-translator --save
+```
+#### npm
+```sh
+npm install https://github.com/linguacode/linguacode-translator --save
+```
 ```
 
 ### Usage
 
 ```javascript
-const cacheWiper = require('node-cache-wiper');
+const translator = require('linguacode-translator');
 
-const serverPath = './src/server';
-let server = require(serverPath);   //content of the "server" file now was cached
+const text = 'տպել("բարեւ")';
+const textToCode = translator.toCode(text, 'hy'); //@output("բարեւ")
+const textToCodeToText = translator.toText(textToCode, 'hy'); //'տպել("բարեւ")'
 
-cacheWiper(serverPath);             //cache of the "server" file now was wiped
-
-server = require(serverPath);       //content of the "server" file now was cached AGAIN
+console.log(text == textToCodeToText) //true
 ```
 
-
 ##License
-node-cache-wiper is [licensed under MIT](https://github.com/otanim/node-cache-wiper/blob/master/LICENSE).
+translator is [licensed under MIT](https://github.com/otanim/translator/blob/master/LICENSE).
