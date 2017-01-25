@@ -53,7 +53,7 @@ const toText = exports.toText = (data = '', lng) => {
           const isPartOfCommand = check.isPartOfCommand(line, value, index);
 
           if (isPartOfCode && !isPartOfCommand) {
-            const toReplace = instance.definition;
+            const toReplace = instance.definition.split('|')[0];
 
             const firstPartEndIndex = index;
             const secondPartBeginIndex = index + value.length;
