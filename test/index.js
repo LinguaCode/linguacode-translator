@@ -30,3 +30,21 @@ describe('tests', () => {
     });
   });
 });
+
+describe('translator', () => {
+  it("hy -> en", (done) => {
+
+    const text = 'տպել("բարեւ")';
+    console.log(`hy: "${text}"`);
+
+    const translation = translator.translate(text, 'hy', 'ru');
+    console.log(`ru: "${translation}"`);
+
+    const expected = 'вывети("բարեւ")';
+
+    if (translation == expected) {
+      return done();
+    }
+    done(new Error(`\nExpected: ${expected}\nResult:   ${translation}`));
+  });
+});
