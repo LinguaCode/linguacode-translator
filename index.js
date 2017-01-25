@@ -39,15 +39,15 @@ const toText = exports.toText = (data = '', lng) => {
   return data
     .split('\n')
     .map(line => {
-      line = line + ' ';
+      line = ' ' + line + ' ';
       for (let i = 0; i < TRANSLATION[lng].length; i++) {
         const instance = TRANSLATION[lng][i];
 
         const command = instance.command;
-        re = new RegExp(`(^(${command})|\\s(${command}))[ (]`, 'ig');
+        re = new RegExp(`(${command})[ (]`, 'ig');
         while ((reStr = re.exec(line)) !== null) { //in line
-          const index = reStr[3] ? reStr.index + 1 : reStr.index;
-          const value = reStr[3] || reStr[2] || reStr[1];
+          const index = reStr.index;
+          const value = reStr[1];
 
           const isPartOfCode = check.isPartOfCode(line, index);
           const isPartOfCommand = check.isPartOfCommand(line, value, index);
@@ -62,7 +62,7 @@ const toText = exports.toText = (data = '', lng) => {
         }
       }
 
-      return line.slice(0,-1);
+      return line.slice(1,-1);
     })
     .join('\n');
 };
