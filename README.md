@@ -13,7 +13,6 @@ yarn add https://github.com/linguacode/linguacode-translator --save
 ```sh
 npm install https://github.com/linguacode/linguacode-translator --save
 ```
-```
 
 ### Usage
 
