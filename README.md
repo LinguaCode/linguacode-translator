@@ -22,6 +22,7 @@ const translator = require('linguacode-translator');
 const text = 'տպել("բարեւ")';
 const textToCode = translator.toCode(text, 'hy'); //@output("բարեւ")
 const textToCodeToText = translator.toText(textToCode, 'hy'); //'տպել("բարեւ")'
+const translation = translator.translate(textToCode, 'hy', 'ru'); //'вывести("բարեւ")'
 
 console.log(text == textToCodeToText) //true
 ```
