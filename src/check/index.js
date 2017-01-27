@@ -1,9 +1,9 @@
-var quotationMarks = {
+const quotationMarks = {
   begin: '«',
   end: '»'
 };
 
-var quoteAnalyze = function (input, index) {
+const quoteAnalyze = function (input, index) {
   let quotes = {
     es6: {
       symbol: '`',
@@ -61,7 +61,7 @@ var quoteAnalyze = function (input, index) {
   return quotes;
 };
 
-var countBefore = (input, index, symbol) => {
+const countBefore = (input, index, symbol) => {
   let count = 0;
   for (let i = index - 1; i >= 0; i--) {
     if (input[i] === symbol && input[i - 1] !== '\\') {
@@ -72,7 +72,7 @@ var countBefore = (input, index, symbol) => {
   return count;
 };
 
-var countAfter = (input, index, symbol) => {
+const countAfter = (input, index, symbol) => {
   let count = 0;
   for (let i = index + 1; i < input.length; i++) {
     if (input[i] === symbol && input[i - 1] !== '\\') {
