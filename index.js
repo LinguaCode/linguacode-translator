@@ -1,5 +1,5 @@
-const check = require('./src/check');
-const tool = require('./src/tool');
+var check = require('./src/check');
+var tool = require('./src/tool');
 var TRANSLATION = require('linguacode-translations');
 
 const toCode = exports.toCode = (data = '', lng) => {
