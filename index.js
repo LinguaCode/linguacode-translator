@@ -36,7 +36,9 @@ var toCode = exports.toCode = (data, lng) => {
     .join('\n');
 };
 
-var toText = exports.toText = (data = '', lng) => {
+var toText = exports.toText = (data, lng) => {
+  data = data || '';
+
   let re, reStr;
   return data
     .split('\n')
