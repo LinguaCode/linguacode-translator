@@ -13,7 +13,7 @@ var toCode = exports.toCode = function (data, lng) {
         var instance = TRANSLATION[lng][i];
 
         var definition = instance.definition;
-        re = new RegExp(`[^@](${definition})|^${definition}`, 'ig');
+        re = new RegExp('[^@](' + definition + ')|^' + definition, 'ig');
         while ((reStr = re.exec(line)) !== null) { //in line
           var index = reStr[1] ? reStr.index + 1 : reStr.index;
           var value = reStr[1] ? reStr[1] : reStr[0];
@@ -48,7 +48,7 @@ var toText = exports.toText = function (data, lng) {
         var instance = TRANSLATION[lng][i];
 
         var command = instance.command;
-        re = new RegExp(`(${command})[ (]`, 'ig');
+        re = new RegExp('(' + command + ')[ (]', 'ig');
         while ((reStr = re.exec(line)) !== null) { //in line
           var index = reStr.index;
           var value = reStr[1];
