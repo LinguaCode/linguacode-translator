@@ -4,7 +4,7 @@ var quotationMarks = {
 };
 
 var quoteAnalyze = function (input, index) {
-  let quotes = {
+  var quotes = {
     es6: {
       symbol: '`',
       count: {
@@ -43,10 +43,10 @@ var quoteAnalyze = function (input, index) {
   };
 
 
-  for (let key in quotes) {
-    const quote = quotes[key];
-    const symbol = quote.symbol;
-    const count = quote.count;
+  for (var key in quotes) {
+    var quote = quotes[key];
+    var symbol = quote.symbol;
+    var count = quote.count;
 
     count.before = countBefore(input, index, symbol);
     count.after = countAfter(input, index, symbol);
@@ -62,8 +62,8 @@ var quoteAnalyze = function (input, index) {
 };
 
 var countBefore = function (input, index, symbol) {
-  let count = 0;
-  for (let i = index - 1; i >= 0; i--) {
+  var count = 0;
+  for (var i = index - 1; i >= 0; i--) {
     if (input[i] === symbol && input[i - 1] !== '\\') {
       count++;
     }
@@ -73,8 +73,8 @@ var countBefore = function (input, index, symbol) {
 };
 
 var countAfter = function (input, index, symbol) {
-  let count = 0;
-  for (let i = index + 1; i < input.length; i++) {
+  var count = 0;
+  for (var i = index + 1; i < input.length; i++) {
     if (input[i] === symbol && input[i - 1] !== '\\') {
       count++;
     }
@@ -87,26 +87,26 @@ var countAfter = function (input, index, symbol) {
  * Checks if the index is between text or comment.
  * @example
  * // returns '\u0562\u0561\u0580\u0565\u0582'
- * exports.isPartOfCode('let = "let a"', 7);
+ * exports.isPartOfCode('var = "var a"', 7);
  * @param {String} input
  * @param {Number} index
  * @returns {Boolean} Returns true if index in input is between text or comment else no.
  */
 exports.isPartOfCode = function (input, index) {
-  let quotes = quoteAnalyze(input, index);
+  var quotes = quoteAnalyze(input, index);
 
-  let currentSymbol = input[index];
+  var currentSymbol = input[index];
 
   //counter of the <text quotes>
-  let quotationMarkIndexes = {
+  var quotationMarkIndexes = {
     begin: input.lastIndexOf(quotationMarks.begin, index - 1),
     endOfBefore: input.lastIndexOf(quotationMarks.end, index - 1),
     endOfAfter: input.indexOf(quotationMarks.end, index + 1)
   };
 
-  let isAnyQuotationMarkBegin = quotationMarkIndexes.begin !== -1;
-  let isAnyQuotationMarkEnd = quotationMarkIndexes.endOfAfter !== -1;
-  let isAnyQuotationMarks = isAnyQuotationMarkBegin && isAnyQuotationMarkEnd;
+  var isAnyQuotationMarkBegin = quotationMarkIndexes.begin !== -1;
+  var isAnyQuotationMarkEnd = quotationMarkIndexes.endOfAfter !== -1;
+  var isAnyQuotationMarks = isAnyQuotationMarkBegin && isAnyQuotationMarkEnd;
 
   if (isAnyQuotationMarks && quotationMarkIndexes.begin < quotationMarkIndexes.endOfBefore && !((quotes.es6.isOpen.before && quotes.es6.isOpen.after) || (!quotes.es6.isOpen.before && !quotes.es6.isOpen.after))) {
     return true;
@@ -141,14 +141,14 @@ exports.isPartOfCode = function (input, index) {
   if (currentSymbol === quotationMarks.begin) {
     return !quotes.es6.isOpen.after;
   } else if (currentSymbol === quotationMarks.end) {
-    let indexOfNextMarkEnd = input.indexOf(currentSymbol, index + 1);
-    let isNextMarkEndExists = indexOfNextMarkEnd !== -1;
-    let indexOfNextES6 = input.indexOf(quotes.es6.symbol, index + 1);
-    let isIndexOfNextMarkEndLowerThanIndexOfNextES6 = isNextMarkEndExists && indexOfNextMarkEnd < indexOfNextES6;
+    var indexOfNextMarkEnd = input.indexOf(currentSymbol, index + 1);
+    var isNextMarkEndExists = indexOfNextMarkEnd !== -1;
+    var indexOfNextES6 = input.indexOf(quotes.es6.symbol, index + 1);
+    var isIndexOfNextMarkEndLowerThanIndexOfNextES6 = isNextMarkEndExists && indexOfNextMarkEnd < indexOfNextES6;
     return !quotes.es6.isOpen.before || !quotes.es6.isOpen.after || (quotes.es6.isOpen.before && quotes.es6.isOpen.after && isNextMarkEndExists && !isIndexOfNextMarkEndLowerThanIndexOfNextES6);
   }
 
-  for (let key in quotes) {
+  for (var key in quotes) {
     if (key !== 'markBegin' && key !== 'markEnd') {
       if (quotes[key].isOpen.before) {
         return false;
@@ -160,12 +160,12 @@ exports.isPartOfCode = function (input, index) {
 };
 
 exports.isPartOfCommand = function (line, instance, index) {
-  const previousSymbol = line[index - 1];
-  const nextSymbol = line[instance.length + index];
-  const regExp = /[^\u00AB\u00BB()%+\-*\/=#'"\s,]/;
+  var previousSymbol = line[index - 1];
+  var nextSymbol = line[instance.length + index];
+  var regExp = /[^\u00AB\u00BB()%+\-*\/=#'"\s,]/;
 
-  const isAnyPartBefore = previousSymbol && regExp.test(previousSymbol);
-  const isAnyPartAfter = nextSymbol && regExp.test(nextSymbol);
+  var isAnyPartBefore = previousSymbol && regExp.test(previousSymbol);
+  var isAnyPartAfter = nextSymbol && regExp.test(nextSymbol);
 
   return isAnyPartBefore || isAnyPartAfter;
 };

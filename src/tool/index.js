@@ -1,7 +1,7 @@
 exports.partitionReplace = function(sourceCode, toReplace, firstPartEndIndex, secondPartBeginIndex) {
-  const firstPart = sourceCode.substring(0, firstPartEndIndex);
-  const secondPart = sourceCode.substring(secondPartBeginIndex);
-  const fullReplacement = `${firstPart}${toReplace}${secondPart}`;
+  var firstPart = sourceCode.substring(0, firstPartEndIndex);
+  var secondPart = sourceCode.substring(secondPartBeginIndex);
+  var fullReplacement = `${firstPart}${toReplace}${secondPart}`;
 
   return fullReplacement;
 };

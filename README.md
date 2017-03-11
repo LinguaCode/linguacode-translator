@@ -17,15 +17,15 @@ npm install https://github.com/linguacode/linguacode-translator --save
 ### Usage
 
 ```javascript
-const translator = require('linguacode-translator');
+var translator = require('linguacode-translator');
 
-const text = 'տպել("բարեւ")';
+var text = 'տպել("բարեւ")';
 
-const textToCode = translator.toCode(text, 'hy'); //@output("բարեւ")
-const textToCodeToText = translator.toText(textToCode, 'hy'); //'տպել("բարեւ")'
+var textToCode = translator.toCode(text, 'hy'); //@output("բարեւ")
+var textToCodeToText = translator.toText(textToCode, 'hy'); //'տպել("բարեւ")'
 console.log(text == textToCodeToText) //true
 
-const translation = translator.translate(textToCode, 'hy', 'ru'); //'вывести("բարեւ")'
+var translation = translator.translate(textToCode, 'hy', 'ru'); //'вывести("բարեւ")'
 
 ```
 

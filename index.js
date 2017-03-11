@@ -5,27 +5,27 @@ var TRANSLATION = require('linguacode-translations');
 var toCode = exports.toCode = function (data, lng) {
   data = data || '';
 
-  let re, reStr;
+  var re, reStr;
   return data
     .split('\n')
     .map(function (line) {
-      for (let i = 0; i < TRANSLATION[lng].length; i++) {
-        const instance = TRANSLATION[lng][i];
+      for (var i = 0; i < TRANSLATION[lng].length; i++) {
+        var instance = TRANSLATION[lng][i];
 
-        const definition = instance.definition;
+        var definition = instance.definition;
         re = new RegExp(`[^@](${definition})|^${definition}`, 'ig');
         while ((reStr = re.exec(line)) !== null) { //in line
-          const index = reStr[1] ? reStr.index + 1 : reStr.index;
-          const value = reStr[1] ? reStr[1] : reStr[0];
+          var index = reStr[1] ? reStr.index + 1 : reStr.index;
+          var value = reStr[1] ? reStr[1] : reStr[0];
 
-          const isPartOfCode = check.isPartOfCode(line, index);
-          const isPartOfCommand = check.isPartOfCommand(line, value, index);
+          var isPartOfCode = check.isPartOfCode(line, index);
+          var isPartOfCommand = check.isPartOfCommand(line, value, index);
 
           if (isPartOfCode && !isPartOfCommand) {
-            const toReplace = instance.command.replace(/\\/g, '');
+            var toReplace = instance.command.replace(/\\/g, '');
 
-            const firstPartEndIndex = index;
-            const secondPartBeginIndex = index + value.length;
+            var firstPartEndIndex = index;
+            var secondPartBeginIndex = index + value.length;
             line = tool.partitionReplace(line, toReplace, firstPartEndIndex, secondPartBeginIndex);
           }
         }
@@ -39,28 +39,28 @@ var toCode = exports.toCode = function (data, lng) {
 var toText = exports.toText = function (data, lng) {
   data = data || '';
 
-  let re, reStr;
+  var re, reStr;
   return data
     .split('\n')
     .map(function (line) {
       line = ' ' + line + ' ';
-      for (let i = 0; i < TRANSLATION[lng].length; i++) {
-        const instance = TRANSLATION[lng][i];
+      for (var i = 0; i < TRANSLATION[lng].length; i++) {
+        var instance = TRANSLATION[lng][i];
 
-        const command = instance.command;
+        var command = instance.command;
         re = new RegExp(`(${command})[ (]`, 'ig');
         while ((reStr = re.exec(line)) !== null) { //in line
-          const index = reStr.index;
-          const value = reStr[1];
+          var index = reStr.index;
+          var value = reStr[1];
 
-          const isPartOfCode = check.isPartOfCode(line, index);
-          const isPartOfCommand = check.isPartOfCommand(line, value, index);
+          var isPartOfCode = check.isPartOfCode(line, index);
+          var isPartOfCommand = check.isPartOfCommand(line, value, index);
 
           if (isPartOfCode && !isPartOfCommand) {
-            const toReplace = instance.definition.split('|')[0];
+            var toReplace = instance.definition.split('|')[0];
 
-            const firstPartEndIndex = index;
-            const secondPartBeginIndex = index + value.length;
+            var firstPartEndIndex = index;
+            var secondPartBeginIndex = index + value.length;
             line = tool.partitionReplace(line, toReplace, firstPartEndIndex, secondPartBeginIndex);
           }
         }
@@ -72,8 +72,8 @@ var toText = exports.toText = function (data, lng) {
 };
 
 exports.translate = function (source, languageInitial, languageDestination) {
-  const code = toCode(source, languageInitial);
-  const text = toText(code, languageDestination);
+  var code = toCode(source, languageInitial);
+  var text = toText(code, languageDestination);
 
   return text;
 };

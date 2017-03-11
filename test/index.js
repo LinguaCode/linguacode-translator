@@ -1,6 +1,6 @@
-const translator = require('..');
+var translator = require('..');
 
-const tests = [{
+var tests = [{
   name: 'simple function',
   text: 'տպել("բարեւ")',
   language: 'hy'
@@ -14,13 +14,13 @@ describe('tests', function () {
   tests.forEach(function (test) {
     it(test.name, function (done) {
 
-      const text = test.text;
+      var text = test.text;
       console.log(`text = "${text}"`);
 
-      const textToCode = translator.toCode(text, 'hy');
+      var textToCode = translator.toCode(text, 'hy');
       console.log(`textToCode = "${textToCode}"`); //@output("բարեւ")
 
-      const textToCodeToText = translator.toText(textToCode, 'hy');
+      var textToCodeToText = translator.toText(textToCode, 'hy');
       console.log(`textToCodeToText = "${textToCodeToText}"\n`); //'տպել("բարեւ")'
 
       if (text == textToCodeToText) {
@@ -34,13 +34,13 @@ describe('tests', function () {
 describe('translator', function () {
   it("hy -> en", function (done) {
 
-    const text = 'տպել("բարեւ")';
+    var text = 'տպել("բարեւ")';
     console.log(`hy: "${text}"`);
 
-    const translation = translator.translate(text, 'hy', 'ru');
+    var translation = translator.translate(text, 'hy', 'ru');
     console.log(`ru: "${translation}"`);
 
-    const expected = 'вывести("բարեւ")';
+    var expected = 'вывести("բարեւ")';
 
     if (translation == expected) {
       return done();
