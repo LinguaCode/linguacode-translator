@@ -2,7 +2,9 @@ var check = require('./src/check');
 var tool = require('./src/tool');
 var TRANSLATION = require('linguacode-translations');
 
-var toCode = exports.toCode = (data = '', lng) => {
+var toCode = exports.toCode = (data, lng) => {
+  data = data || '';
+
   let re, reStr;
   return data
     .split('\n')
@@ -62,7 +64,7 @@ var toText = exports.toText = (data = '', lng) => {
         }
       }
 
-      return line.slice(1,-1);
+      return line.slice(1, -1);
     })
     .join('\n');
 };
