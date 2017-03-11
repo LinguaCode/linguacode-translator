@@ -61,7 +61,7 @@ var quoteAnalyze = function (input, index) {
   return quotes;
 };
 
-var countBefore = (input, index, symbol) => {
+var countBefore = function (input, index, symbol) {
   let count = 0;
   for (let i = index - 1; i >= 0; i--) {
     if (input[i] === symbol && input[i - 1] !== '\\') {
@@ -72,7 +72,7 @@ var countBefore = (input, index, symbol) => {
   return count;
 };
 
-var countAfter = (input, index, symbol) => {
+var countAfter = function (input, index, symbol) {
   let count = 0;
   for (let i = index + 1; i < input.length; i++) {
     if (input[i] === symbol && input[i - 1] !== '\\') {

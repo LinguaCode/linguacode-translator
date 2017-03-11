@@ -8,7 +8,7 @@ var toCode = exports.toCode = function (data, lng) {
   let re, reStr;
   return data
     .split('\n')
-    .map(line => {
+    .map(function (line) {
       for (let i = 0; i < TRANSLATION[lng].length; i++) {
         const instance = TRANSLATION[lng][i];
 
@@ -42,7 +42,7 @@ var toText = exports.toText = function (data, lng) {
   let re, reStr;
   return data
     .split('\n')
-    .map(line => {
+    .map(function (line) {
       line = ' ' + line + ' ';
       for (let i = 0; i < TRANSLATION[lng].length; i++) {
         const instance = TRANSLATION[lng][i];

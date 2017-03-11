@@ -10,9 +10,9 @@ const tests = [{
   language: 'hy'
 }];
 
-describe('tests', () => {
-  tests.forEach((test) => {
-    it(test.name, (done) => {
+describe('tests', function () {
+  tests.forEach(function (test) {
+    it(test.name, function (done) {
 
       const text = test.text;
       console.log(`text = "${text}"`);
@@ -31,8 +31,8 @@ describe('tests', () => {
   });
 });
 
-describe('translator', () => {
-  it("hy -> en", (done) => {
+describe('translator', function () {
+  it("hy -> en", function (done) {
 
     const text = 'տպել("բարեւ")';
     console.log(`hy: "${text}"`);
