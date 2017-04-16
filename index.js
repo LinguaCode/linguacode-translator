@@ -48,10 +48,10 @@ var toText = exports.toText = function (data, lng) {
         var instance = TRANSLATION[lng][i];
 
         var command = instance.command;
-        re = new RegExp('(' + command + ')[ (]', 'ig');
+        re = new RegExp(command, 'ig');
         while ((reStr = re.exec(line)) !== null) { //in line
           var index = reStr.index;
-          var value = reStr[1];
+          var value = reStr[0];
 
           var isPartOfCode = check.isPartOfCode(line, index);
           var isPartOfCommand = check.isPartOfCommand(line, value, index);
