@@ -4,4 +4,8 @@ yarn.lock
 /node_modules/
 npm-debug.log
 
+# WebStorm
 .idea
+
+# Coverage
+coverage/

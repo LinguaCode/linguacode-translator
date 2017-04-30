@@ -1,6 +1,6 @@
 {
   "name": "linguacode-translator",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "2 side conversion: code to text; text to code.",
   "main": "index.js",
   "homepage": "https://github.com/LinguaCode/linguacode-translator",
@@ -25,12 +25,20 @@
     "node-cache-wiper"
   ],
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "mocha",
+    "coverage": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec && gnome-open coverage/lcov-report/index.html",
+    "coveralls": "istanbul cover ./node_modules/.bin/_mocha && ./node_modules/.bin/istanbul-coveralls"
   },
   "bugs": {
     "url": "https://github.com/LinguaCode/linguacode-translator/issues"
   },
   "dependencies": {
     "linguacode-translations": "https://github.com/LinguaCode/linguacode-translations"
+  },
+  "devDependencies": {
+    "istanbul": "^0.4.5",
+    "istanbul-coveralls": "^1.0.3",
+    "mocha": "^3.3.0",
   }
 }

@@ -29,5 +29,6 @@ var translation = translator.translate(textToCode, 'hy', 'ru'); //'вывест�
 
 ```
 
-##License
-translator is [licensed under MIT](https://github.com/otanim/translator/blob/master/LICENSE).
+## License
+
+translator is [licensed under MIT](https://github.com/LinguaCode/linguacode-translator/blob/master/LICENSE).
