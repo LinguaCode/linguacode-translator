@@ -108,29 +108,23 @@ exports.isPartOfCode = function (input, index) {
   var isAnyQuotationMarkEnd = quotationMarkIndexes.endOfAfter !== -1;
   var isAnyQuotationMarks = isAnyQuotationMarkBegin && isAnyQuotationMarkEnd;
 
-  if (isAnyQuotationMarks && quotationMarkIndexes.begin < quotationMarkIndexes.endOfBefore && !((quotes.es6.isOpen.before && quotes.es6.isOpen.after) || (!quotes.es6.isOpen.before && !quotes.es6.isOpen.after))) {
-    return true;
-  } else if (isAnyQuotationMarks && quotationMarkIndexes.begin < quotationMarkIndexes.endOfAfter && !(quotationMarkIndexes.begin < quotationMarkIndexes.endOfBefore) && !quotes.es6.isOpen.before && !quotes.single.isOpen.before && !quotes.double.isOpen.before) {
-    return false;
-  }
+  if (isAnyQuotationMarks && quotationMarkIndexes.begin < quotationMarkIndexes.endOfBefore && !((quotes.es6.isOpen.before && quotes.es6.isOpen.after) || (!quotes.es6.isOpen.before && !quotes.es6.isOpen.after))) return true;
+  if (isAnyQuotationMarks && quotationMarkIndexes.begin < quotationMarkIndexes.endOfAfter && !(quotationMarkIndexes.begin < quotationMarkIndexes.endOfBefore) && !quotes.es6.isOpen.before && !quotes.single.isOpen.before && !quotes.double.isOpen.before) return false;
 
   //check if the symbol was <text quote>
   if (currentSymbol === quotes.single.symbol) {
-    if (quotes.double.isOpen.after && quotes.double.isOpen.before) {
-      return false;
-    }
+    if (quotes.double.isOpen.after && quotes.double.isOpen.before) return false;
 
     if ((quotes.single.isOpen.after && !quotes.single.isOpen.before) || (quotes.es6.isOpen.before && !quotes.single.isOpen.after)) {
       return true;
     }
   } else if (currentSymbol === quotes.double.symbol) {
-    if (quotes.es6.isOpen.after && quotes.es6.isOpen.before) {
-      return false;
-    }
+    if (quotes.es6.isOpen.after && quotes.es6.isOpen.before) return false;
 
-    if ((quotes.double.isOpen.after && !quotes.double.isOpen.before) || (quotes.es6.isOpen.before && !quotes.double.isOpen.after)) {
-      return true;
-    }
+    if (
+      (quotes.double.isOpen.after && !quotes.double.isOpen.before) ||
+      (quotes.es6.isOpen.before && !quotes.double.isOpen.after)
+    ) return true;
   }
 
 
@@ -145,15 +139,15 @@ exports.isPartOfCode = function (input, index) {
     var isNextMarkEndExists = indexOfNextMarkEnd !== -1;
     var indexOfNextES6 = input.indexOf(quotes.es6.symbol, index + 1);
     var isIndexOfNextMarkEndLowerThanIndexOfNextES6 = isNextMarkEndExists && indexOfNextMarkEnd < indexOfNextES6;
-    return !quotes.es6.isOpen.before || !quotes.es6.isOpen.after || (quotes.es6.isOpen.before && quotes.es6.isOpen.after && isNextMarkEndExists && !isIndexOfNextMarkEndLowerThanIndexOfNextES6);
+    return (
+      !quotes.es6.isOpen.before || !quotes.es6.isOpen.after || (
+        quotes.es6.isOpen.before && quotes.es6.isOpen.after && isNextMarkEndExists && !isIndexOfNextMarkEndLowerThanIndexOfNextES6
+      )
+    );
   }
 
   for (var key in quotes) {
-    if (key !== 'markBegin' && key !== 'markEnd') {
-      if (quotes[key].isOpen.before) {
-        return false;
-      }
-    }
+    if (key !== 'markBegin' && key !== 'markEnd' && quotes[key].isOpen.before) return false;
   }
 
   return true;

@@ -2,12 +2,12 @@ var translator = require('..');
 
 var tests = [{
   name: 'simple function',
-  text: 'տպել("բարեւ")',
-  language: 'hy'
+  text: 'ելք("բարեւ")',
+  language: 'hy-AM'
 }, {
   name: 'with content',
-  text: 'եթե (4 > 2)\n    տպել("բարեւ")',
-  language: 'hy'
+  text: 'եթե (4 > 2)\n    ելք("բարեւ")',
+  language: 'hy-AM'
 }];
 
 describe('tests', function () {
@@ -17,13 +17,13 @@ describe('tests', function () {
       var text = test.text;
       console.log('text = "' + text + '"');
 
-      var textToCode = translator.toCode(text, 'hy');
+      var textToCode = translator.toCode(text, 'hy-AM');
       console.log('textToCode = "' + textToCode + '"'); //@output("բարեւ")
 
-      var textToCodeToText = translator.toText(textToCode, 'hy');
-      console.log('textToCodeToText = "' + textToCodeToText + '"\n'); //'տպել("բարեւ")'
+      var textToCodeToText = translator.toText(textToCode, 'hy-AM');
+      console.log('textToCodeToText = "' + textToCodeToText + '"\n'); //'ելք("բարեւ")'
 
-      if (text == textToCodeToText) {
+      if (text === textToCodeToText) {
         return done();
       }
       done(new Error('source text doesn\'t equal to reconverted text'));
@@ -32,17 +32,17 @@ describe('tests', function () {
 });
 
 describe('translator', function () {
-  it("hy -> en", function (done) {
+  it("hy-AM -> en", function (done) {
 
-    var text = 'տպել("բարեւ")';
+    var text = 'ելք("բարեւ")';
     console.log('hy: "' + text + '"');
 
-    var translation = translator.translate(text, 'hy', 'ru');
+    var translation = translator.translate(text, 'hy-AM', 'ru');
     console.log('ru: "' + translation + '"');
 
-    var expected = 'вывести("բարեւ")';
+    var expected = 'вывод("բարեւ")';
 
-    if (translation == expected) {
+    if (translation === expected) {
       return done();
     }
     done(new Error('\nExpected: ' + expected + '\nResult:   ' + translation));
