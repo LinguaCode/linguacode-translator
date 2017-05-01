@@ -3,6 +3,28 @@ var quotationMarks = {
   end: '»'
 };
 
+var countBefore = function (input, index, symbol) {
+  var count = 0;
+  for (var i = index - 1; i >= 0; i--) {
+    if (input[i] === symbol && input[i - 1] !== '\\') {
+      count++;
+    }
+  }
+
+  return count;
+};
+
+var countAfter = function (input, index, symbol) {
+  var count = 0;
+  for (var i = index + 1; i < input.length; i++) {
+    if (input[i] === symbol && input[i - 1] !== '\\') {
+      count++;
+    }
+  }
+
+  return count;
+};
+
 var quoteAnalyze = function (input, index) {
   var quotes = {
     es6: {
@@ -61,28 +83,6 @@ var quoteAnalyze = function (input, index) {
   return quotes;
 };
 
-var countBefore = function (input, index, symbol) {
-  var count = 0;
-  for (var i = index - 1; i >= 0; i--) {
-    if (input[i] === symbol && input[i - 1] !== '\\') {
-      count++;
-    }
-  }
-
-  return count;
-};
-
-var countAfter = function (input, index, symbol) {
-  var count = 0;
-  for (var i = index + 1; i < input.length; i++) {
-    if (input[i] === symbol && input[i - 1] !== '\\') {
-      count++;
-    }
-  }
-
-  return count;
-};
-
 /**
  * Checks if the index is between text or comment.
  * @example
@@ -92,7 +92,7 @@ var countAfter = function (input, index, symbol) {
  * @param {Number} index
  * @returns {Boolean} Returns true if index in input is between text or comment else no.
  */
-exports.isPartOfCode = function (input, index) {
+var isNotPartOfText = function (input, index) {
   var quotes = quoteAnalyze(input, index);
 
   var currentSymbol = input[index];
@@ -132,6 +132,7 @@ exports.isPartOfCode = function (input, index) {
     return !quotes.single.isOpen.before || (quotes.single.isOpen.before && !quotes.single.isOpen.after);
   }
 
+
   if (currentSymbol === quotationMarks.begin) {
     return !quotes.es6.isOpen.after;
   } else if (currentSymbol === quotationMarks.end) {
@@ -151,6 +152,20 @@ exports.isPartOfCode = function (input, index) {
   }
 
   return true;
+};
+
+var isNotPartOfComment = function (line, index) {
+  const NUMBER_SIGN = '#';
+
+  const indexOfNumberSign = line.lastIndexOf(NUMBER_SIGN, index);
+
+  if (indexOfNumberSign === -1) return true;
+
+  return isNotPartOfText(line, indexOfNumberSign);
+};
+
+exports.isPartOfCode = function (line, index) {
+  return isNotPartOfText(line, index) && isNotPartOfComment(line, index);
 };
 
 exports.isPartOfCommand = function (line, instance, index) {
