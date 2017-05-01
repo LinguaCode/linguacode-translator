@@ -161,7 +161,7 @@ var isNotPartOfComment = function (line, index) {
 
   if (indexOfNumberSign === -1) return true;
 
-  return isNotPartOfText(line, indexOfNumberSign);
+  return !isNotPartOfText(line, indexOfNumberSign);
 };
 
 exports.isPartOfCode = function (line, index) {
