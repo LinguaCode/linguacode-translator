@@ -1,6 +1,6 @@
 {
   "name": "linguacode-translator",
-  "version": "0.0.71",
+  "version": "0.0.8",
   "description": "2 side conversion: code to text; text to code.",
   "main": "index.js",
   "homepage": "https://github.com/LinguaCode/linguacode-translator",
@@ -10,7 +10,7 @@
     "url": "git+https://github.com/LinguaCode/linguacode-translator"
   },
   "engines": {
-    "node": ">= 7.4.0"
+    "node": ">= 7.9.0"
   },
   "license": "SEE LICENSE file",
   "keywords": [
