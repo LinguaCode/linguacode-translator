@@ -6,6 +6,10 @@ var
   toCode = exports.toCode = function (data, lng) {
     data = data || '';
 
+    if (!TRANSLATION[lng]) {
+      throw new Error('Language was not specified.');
+    }
+
     var re, reStr;
     return data
       .split('\n')
