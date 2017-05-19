@@ -35,6 +35,7 @@ var toCode = exports.toCode = function (data, lng) {
             var firstPartEndIndex = index;
             var secondPartBeginIndex = index + value.length;
             line = tool.partitionReplace(line, toReplace, firstPartEndIndex, secondPartBeginIndex);
+            re.lastIndex = firstPartEndIndex + toReplace.length;
           }
         }
       }
